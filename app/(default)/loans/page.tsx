@@ -3,14 +3,15 @@ export const metadata = {
   description: "Page description",
 };
 
-import Hero from "./hero";
 import WallOfLove from "@/components/del/wall-of-love";
 import Cta from "@/components/del/cta-alternative";
+import HeroCalculatorLoan from "@/components/loans/hero-calculator-loan";
+
 
 export default function Customers() {
   return (
     <>
-      <Hero />
+    <HeroCalculatorLoan />
       <WallOfLove />
       <Cta
         heading="Create your next project with Simple"

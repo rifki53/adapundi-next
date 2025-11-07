@@ -5,12 +5,12 @@ import Image, { StaticImageData } from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Impor gambar-gambar
-import app1 from '@/images/shot/app-1.png';
-import app2 from '@/images/shot/app-2.png';
-import app3 from '@/images/shot/app-3.png';
-import app4 from '@/images/shot/app-4.png';
-import androidLogo from '@/images/download/android-cta-logo.png';
-import iosLogo from '@/images/download/ios-cta-logo.png';
+import app1 from '@/public/images/shot/app-1.png';
+import app2 from '@/public/images/shot/app-2.png';
+import app3 from '@/public/images/shot/app-3.png';
+import app4 from '@/public/images/shot/app-4.png';
+import androidLogo from '@/public/images/download/android-cta-logo.png';
+import iosLogo from '@/public/images/download/ios-cta-logo.png';
 
 // Definisikan tipe untuk data agar lebih aman
 const images: { [key: number]: StaticImageData } = { 1: app1, 2: app2, 3: app3, 4: app4 };

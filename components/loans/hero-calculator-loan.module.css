@@ -1,0 +1,55 @@
+/* 
+  Kita buat kelas container, misal .rangeContainer.
+  Ini memastikan bahwa hanya input[type="range"] di dalam container ini 
+  yang akan mendapatkan style berikut.
+*/
+.rangeContainer input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 8px;
+  outline: none;
+  /* Kita tidak perlu mendefinisikan 'w-full' atau 'cursor-pointer' lagi jika sudah ada di Tailwind */
+}
+
+.rangeContainer input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10b981; /* Warna hijau dari tema Anda */
+  cursor: pointer;
+  border: none;
+  margin-top: -5px; /* Menyesuaikan posisi thumb secara vertikal */
+}
+
+.rangeContainer input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10b981;
+  cursor: pointer;
+  border: none;
+}
+
+/* Kelas 'breathing' bisa tetap seperti ini */
+.breathing {
+  animation: breathingAnimation 2s ease-out infinite;
+}
+
+/* 
+  Penting: Ganti nama @keyframes agar tidak bentrok dengan animasi global lain.
+  CSS Modules tidak men-scope nama @keyframes.
+*/
+@keyframes breathingAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

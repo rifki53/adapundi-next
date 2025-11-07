@@ -1,32 +1,51 @@
-export const metadata = {
-  title: "Home - Adapundi", // Judul diperbarui agar lebih relevan
-  description: "Pinjaman online cepat cair, aman, dan terpercaya. Simulasi pinjaman, proses mudah, dan keamanan data terjamin.",
-};
+import { Metadata } from "next";
+import { homePageSchemas, generateBreadcrumbSchema } from "@/utils/schemas";
 
-// Komponen yang sudah ada
+// Komponen Halaman
 import HeroHome from "@/components/hero-home";
 import FeaturesHome from "@/components/features-home";
-
-// Impor komponen baru yang telah dimigrasi
 import HowItWorksHome from "@/components/how-it-works-home";
 import LoanSection1Home from "@/components/loan-section-1-home";
 import LoanSection2Home from "@/components/loan-section-2-home";
 import LoanSection3Home from "@/components/loan-section-3-home";
+import TestimonialsSection from "@/components/testimonials/testimonials-section";
+import PartnerCarousel from "@/components/partner/partner-carousel";
+import RegulatorSectionHome from "@/components/regulator-section-home";
+
+export const metadata: Metadata = {
+  title: "Home - Adapundi",
+  description:
+    "Pinjaman online cepat cair, aman, dan terpercaya. Simulasi pinjaman, proses mudah, dan keamanan data terjamin.",
+};
 
 export default function Home() {
+  const breadcrumbSchema = generateBreadcrumbSchema(["home"]);
+
   return (
     <>
-      {/* Bagian Atas Halaman */}
+      {homePageSchemas.map((schema, index) => (
+        <script
+          key={`home-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      <script
+        key="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      {/* Komponen-komponen visual halaman */}
       <HeroHome />
       <FeaturesHome />
-
-      {/* Menampilkan Proses Cara Kerja */}
       <HowItWorksHome />
-
-      {/* Menampilkan Detail dan Keunggulan Pinjaman */}
       <LoanSection1Home />
       <LoanSection2Home />
       <LoanSection3Home />
+      <TestimonialsSection />
+      <PartnerCarousel />
+      <RegulatorSectionHome />
     </>
   );
 }
