@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import type { FC } from 'react'; // Impor FC (Functional Component) untuk typing
+import Link from "next/link";
+import type { FC } from "react"; // Impor FC (Functional Component) untuk typing
 
 // 1. Definisikan tipe untuk props menggunakan interface TypeScript
 interface BaseButtonProps {
@@ -22,11 +22,12 @@ interface BaseButtonProps {
 const BaseButton: FC<BaseButtonProps> = ({
   title,
   to,
-  marginClass = '',
+  marginClass = "",
   external = false,
 }) => {
   // Kelas CSS untuk tombol dibuat responsif
-  const buttonClasses = "btn bg-white text-gray-800 rounded-xl text-sm font-bold hover:bg-gray-100 transition-colors w-full lg:w-auto px-6 py-3";
+  const buttonClasses =
+    "btn bg-white text-gray-800 rounded-xl text-sm font-bold hover:bg-gray-100 transition-colors w-full lg:w-auto px-12 py-4";
 
   return (
     // Wrapper dengan flexbox untuk alignment
