@@ -1,4 +1,4 @@
-import Testimonial from "@/components/testimonial";
+import Testimonial from "@/components/del/testimonial";
 import TestimonialImg01 from "@/public/images/del/testimonial-01.jpg";
 import TestimonialImg02 from "@/public/images/del/testimonial-02.jpg";
 import TestimonialImg03 from "@/public/images/del/testimonial-03.jpg";

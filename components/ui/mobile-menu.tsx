@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
-import Dropdown from "@/components/dropdown"; // Pastikan path ini benar
+import Dropdown from "@/components/del/dropdown"; // Pastikan path ini benar
 
 // Definisikan tipe untuk link navigasi dan props komponen
 type NavLink = {

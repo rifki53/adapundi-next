@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 @import 'tailwindcss';
 
 /* Additional styles */
 @import './additional-styles/utility-patterns.css' layer(components);
 @import './additional-styles/theme.css';
+@import './additional-styles/custom-fonts.css' layer(components);
 
 @plugin "@tailwindcss/forms" {
   strategy: base;
@@ -12,7 +14,7 @@
 }
 
 @theme {
-  --font-inter: Inter, sans-serif;
+  --font-inter: Montserrat, sans-serif;
   --font-mono: Roboto Mono, monospace;
 
   --text-xs: 0.75rem;
@@ -56,7 +58,12 @@
   --animate-breath: breath;
   --animate-float: float;
   --animate-line: line;
-  --animate-infinite-scroll: infinite-scroll;  
+  --animate-infinite-scroll: infinite-scroll;
+
+  --color-custom-green: #11cf3a;
+  --color-custom-green2: #79e650;
+  --color-custom-green3: #79e651;
+  --color-custom-orange: #ffc536;
 
   @keyframes code-1 {
     0% {

@@ -6,7 +6,7 @@ import Image from "next/image";
 import axios from "axios"; // <-- Import axios
 
 import LogoImg from "@/public/images/logo/logo_new.png";
-import Dropdown from "@/components/dropdown";
+import Dropdown from "@/components/del/dropdown";
 import MobileMenu from "./mobile-menu";
 
 // Definisikan link navigasi di luar komponen

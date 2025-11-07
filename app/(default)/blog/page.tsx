@@ -1,6 +1,6 @@
-import { getBlogPosts } from "@/components/mdx/utils";
-import PageIllustration from "@/components/page-illustration";
-import PostItem from "@/components/post-item";
+import { getBlogPosts } from "@/components/del/mdx/utils";
+import PageIllustration from "@/components/del/page-illustration";
+import PostItem from "@/components/del/post-item";
 
 export const metadata = {
   title: "Blog - Simple",
