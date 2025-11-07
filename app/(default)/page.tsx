@@ -12,10 +12,43 @@ import TestimonialsSection from "@/components/home/testimonials/testimonials-sec
 import PartnerCarousel from "@/components/home/partner/partner-carousel";
 import RegulatorSectionHome from "@/components/home/regulator-section-home";
 
+// 1. Definisikan Metadata SPESIFIK untuk Halaman Home
 export const metadata: Metadata = {
-  title: "Home - Adapundi",
+  title: "Aplikasi Pinjaman Daring Cepat Cair & Terpercaya", // Ini akan menjadi: "Aplikasi Pinjaman... | Adapundi"
   description:
-    "Pinjaman online cepat cair, aman, dan terpercaya. Simulasi pinjaman, proses mudah, dan keamanan data terjamin.",
+    "Pinjaman online cepat cair dari Adapundi. Proses mudah, aman, dan terpercaya oleh jutaan pengguna. Ajukan pinjaman dana tunai Anda sekarang juga!",
+
+  alternates: {
+    canonical: "https://www.adapundi.com", // URL kanonis untuk halaman ini
+  },
+
+  // --- Override Open Graph & Twitter untuk halaman ini ---
+  openGraph: {
+    title: "Aplikasi Pinjaman Daring Cepat Cair & Terpercaya",
+    description:
+      "Pinjaman online cepat cair dari Adapundi. Proses mudah, aman, dan terpercaya.",
+    images: [
+      {
+        url: "https://www.adapundi.com/og-image.png", // Gambar spesifik untuk homepage
+        width: 1200,
+        height: 630,
+        alt: "Adapundi - Pinjaman Online Terpercaya",
+      },
+    ],
+  },
+  twitter: {
+    title: "Aplikasi Pinjaman Daring Cepat Cair & Terpercaya",
+    description:
+      "Pinjaman online cepat cair dari Adapundi. Proses mudah, aman, dan terpercaya.",
+    images: [
+      {
+        url: "https://www.adapundi.com/twitter-card-1200x630.png", // Gambar Twitter spesifik
+        width: 1200,
+        height: 600,
+        alt: "Adapundi Twitter Card",
+      },
+    ],
+  },
 };
 
 export default function Home() {
@@ -36,7 +69,6 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      {/* Komponen-komponen visual halaman */}
       <HeroHome />
       <FeaturesHome />
       <HowItWorksHome />
