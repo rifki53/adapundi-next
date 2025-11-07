@@ -85,7 +85,7 @@ const downloadButtons = [
   },
 ];
 
-export default function HeroCarousel() {
+export default function HeroHome() {
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
   const [hoveredPlatform, setHoveredPlatform] = useState<string | null>(null);
 

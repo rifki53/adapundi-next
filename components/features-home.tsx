@@ -2,11 +2,11 @@ import Image from "next/image";
 
 // Impor gambar-gambar yang dibutuhkan
 // Pastikan path ini sesuai dengan struktur folder proyek Anda
-import bgImage from "@/images/bgslide/eclipse.png";
-import icon1 from "@/images/icon/ic-1.png";
-import icon2 from "@/images/icon/ic-2.png";
-import icon3 from "@/images/icon/ic-3.png";
-import icon4 from "@/images/icon/ic-4.png";
+import bgImage from "@/public/images/bgslide/eclipse.png";
+import icon1 from "@/public/images/icon/ic-1.png";
+import icon2 from "@/public/images/icon/ic-2.png";
+import icon3 from "@/public/images/icon/ic-3.png";
+import icon4 from "@/public/images/icon/ic-4.png";
 
 // Data untuk kartu fitur, sama seperti di Vue
 const featureCards = [
