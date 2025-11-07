@@ -3,21 +3,20 @@ export const metadata = {
   description: "Page description",
 };
 
-import WallOfLove from "@/components/del/wall-of-love";
-import Cta from "@/components/del/cta-alternative";
+import FeaturesLoan from "@/components/loans/features-loan";
 import HeroCalculatorLoan from "@/components/loans/hero-calculator-loan";
+import PaymentPartners from "@/components/loans/payment-partners";
+import RiplayLoans from "@/components/loans/riplay-loans";
+import SecurityLoans from "@/components/loans/security-loans";
 
-
-export default function Customers() {
+export default function Loans() {
   return (
     <>
-    <HeroCalculatorLoan />
-      <WallOfLove />
-      <Cta
-        heading="Create your next project with Simple"
-        buttonText="Start Free Trial"
-        buttonLink="#0"
-      />
+      <HeroCalculatorLoan />
+      <FeaturesLoan />
+      <PaymentPartners />
+      <RiplayLoans />
+      <SecurityLoans />
     </>
   );
 }
