@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /about-us
+Disallow: /help
+Disallow: /user-complaints
+Disallow: /finance
+Disallow: /trackback/
+Disallow: */feed/*
+Disallow: /mail/
+Disallow: /user/login
+
+# Sitemap location
+Sitemap: https://www.adapundi.com/sitemap.xml

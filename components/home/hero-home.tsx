@@ -12,6 +12,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
+import styles from "./hero-home.module.css";
+
 // --- Impor Gambar Manual ---
 // Desktop
 import bgImage01Desktop from "@/public/images/bgslide/horizontal/h1.png";
@@ -71,6 +73,7 @@ const slides: Slide[] = [
 ];
 
 const downloadButtons = [
+  /* ... data tombol Anda tetap sama ... */
   {
     platform: "Android",
     href: "https://adapundi.onelink.me/cN17/em5uj56b",
@@ -93,7 +96,7 @@ export default function HeroHome() {
     const handleResize = () => {
       setIsMobileOrTablet(window.innerWidth < 1024);
     };
-    handleResize(); // Panggil sekali saat mount
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -101,6 +104,7 @@ export default function HeroHome() {
   return (
     <section className="relative">
       <Swiper
+        // ... props Swiper Anda tetap sama ...
         className="h-full w-screen lg:w-full"
         modules={[Pagination, Autoplay]}
         slidesPerView={1}
@@ -121,6 +125,7 @@ export default function HeroHome() {
           return (
             <SwiperSlide key={index}>
               <Component
+                // ... props Component Anda tetap sama ...
                 href={slide.link ?? undefined}
                 target={slide.link ? "_blank" : undefined}
                 rel={slide.link ? "nofollow noopener noreferrer" : undefined}
@@ -131,7 +136,6 @@ export default function HeroHome() {
               >
                 <div className="z-10 mx-auto flex min-h-147 w-full max-w-6xl flex-col justify-end px-4 sm:px-6 lg:justify-center">
                   <div className="w-full pb-10 pr-2 text-center text-gray-900 lg:mb-18 lg:w-1/2 lg:pb-0 lg:pt-40 lg:text-left">
-                    {/* Conditional Heading: h1 for first slide, h2 for others */}
                     {index === 0 ? (
                       <h1 className="h2 mb-4 whitespace-pre-line font-extrabold text-gray-900">
                         {slide.title}
@@ -164,7 +168,7 @@ export default function HeroHome() {
                               alt={`${button.platform} Download`}
                             />
                             {hoveredPlatform === button.platform && !isMobileOrTablet && (
-                              <div className="hover-popup rounded-t-xl bg-white px-4 pb-2 pt-4 z-20">
+                              <div className={`${styles.hoverPopup} rounded-t-xl bg-white px-4 pb-2 pt-4 z-20`}>
                                 <Image
                                   src={button.qrCode}
                                   className="w-full max-w-[120px]"
