@@ -3,7 +3,7 @@ export const metadata = {
   description: "Page description",
 };
 
-import Hero from "@/components/hero-home";
+import HeroCarousel from "@/components/hero-carousel";
 import BusinessCategories from "@/components/business-categories";
 import LargeTestimonial from "@/components/large-testimonial";
 import FeaturesPlanet from "@/components/features-planet";
@@ -14,7 +14,7 @@ import Cta from "@/components/cta";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <HeroCarousel />
       <BusinessCategories />
       <LargeTestimonial />
       <FeaturesPlanet />
