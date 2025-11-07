@@ -1,0 +1,34 @@
+/* 
+  Menggantikan :deep(.swiper-pagination-bullet) dari Vue.
+  :global() memastikan class ini tidak di-hash dan menargetkan class global dari Swiper.
+*/
+:global(.swiper-pagination-bullet) {
+  background-color: #ffffff !important; /* !important untuk memastikan override */
+}
+
+/* 
+  Class ini akan di-hash untuk menjadi unik.
+  Contoh: .hoverPopup -> .hero-home_hoverPopup__a1b2c 
+*/
+.hoverPopup {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  border-bottom: none;
+  transform: translateY(1px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 
+  Media query untuk menonaktifkan efek hover pada perangkat sentuh (di mana 'hover' tidak ada).
+  Ini menargetkan class utility dari Tailwind secara langsung.
+*/
+@media (hover: none) and (pointer: coarse) {
+  :global(.hover\:rounded-b-xl:hover),
+  :global(.hover\:rounded-t-none:hover) {
+    border-radius: 0.75rem !important;
+  }
+}
