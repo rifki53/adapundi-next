@@ -13,6 +13,7 @@ import MobileMenu from "./mobile-menu";
 const aboutLinks = [
   { path: "/about", title: "Tentang Adapundi" },
   { path: "/testimonial", title: "Kisah Inspiratif" },
+  { path: "/blog", title: "Artikel" },
 ];
 
 const serviceLinks = [
