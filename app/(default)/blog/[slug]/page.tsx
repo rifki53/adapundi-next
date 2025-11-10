@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { getBlogPosts } from "@/components/del/mdx/utils";
+import { getBlogPosts } from "@/components/mdx/utils";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PostDate from "@/components/del/post-date";
-import { CustomMDX } from "@/components/del/mdx/mdx";
+import { CustomMDX } from "@/components/mdx/mdx";
 import PostNav from "./post-nav";
 import PageIllustration from "@/components/del/page-illustration";
 import Newsletter from "@/components/del/newsletter";
