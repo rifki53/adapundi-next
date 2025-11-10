@@ -5,8 +5,9 @@ import Image from "next/image";
 // Impor fungsi dan tipe yang benar dari hooks/strapi
 import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi"; 
 
-// Impor komponen PostNav (pastikan path-nya benar)
+// Impor komponen PostNav dan CustomMDX
 import PostNav from "./post-nav";
+import { CustomMDX } from "@/components/mdx/mdx"; // Pastikan nama file dan path ini benar
 
 // Props untuk halaman dinamis
 interface PostPageProps {
@@ -17,7 +18,6 @@ interface PostPageProps {
 
 // Generate metadata dinamis berdasarkan slug
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  // Menangani 'params' sebagai Promise jika diperlukan
   const resolvedParams = await params;
   const data = await getStrapiPostBySlug(resolvedParams.slug);
 
@@ -50,13 +50,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 // Komponen Halaman Detail Artikel
 export default async function PostPage({ params }: PostPageProps) {
-  // 1. Menangani 'params' sebagai Promise untuk versi Next.js yang lebih lama
   const resolvedParams = await params;
-  
-  // 2. Panggil fungsi untuk mendapatkan semua data sekaligus menggunakan slug yang sudah di-resolve
   const { post, prevPost, nextPost } = await getStrapiPostBySlug(resolvedParams.slug);
 
-  // Fungsi 'getStrapiPostBySlug' sudah menangani kasus 'not found'
   if (!post) {
     return notFound();
   }
@@ -89,11 +85,10 @@ export default async function PostPage({ params }: PostPageProps) {
                 </figure>
               )}
 
-              {/* Konten artikel */}
-              <div
-                className="prose lg:prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              ></div>
+              {/* Konten artikel dirender dengan CustomMDX */}
+              <div className="prose lg:prose-lg max-w-none">
+                <CustomMDX source={post.content} />
+              </div>
 
               {/* --- NAVIGASI POST --- */}
               <footer className="mt-12 pt-8 border-t border-gray-200">
