@@ -1,7 +1,55 @@
+import { Metadata } from "next";
 import { getStrapiPosts, getStrapiCategories } from "@/hooks/strapi";
 import type { Category } from "@/hooks/strapi";
-import BlogList from "./BlogList"; // Kita akan buat komponen ini di bawah
+import { generateBreadcrumbSchema } from "@/utils/schemas";
+
+// Impor komponen Anda
+import BlogList from "./BlogList";
 import HeroTitle from "@/components/hero-title";
+
+// 1. Definisikan Metadata SPESIFIK untuk Halaman Indeks Blog (/blog)
+export const metadata: Metadata = {
+  // Judul spesifik. Akan menjadi: "Blog & Artikel Keuangan Terbaru | Adapundi"
+  title: "Blog & Artikel Keuangan Terbaru",
+  description:
+    "Jelajahi blog Adapundi untuk menemukan artikel, berita, dan informasi terkini seputar keuangan, tips pinjaman, dan solusi finansial terpercaya.",
+
+  // URL kanonis untuk halaman ini.
+  alternates: {
+    canonical: "/blog",
+  },
+
+  // --- Menimpa Open Graph & Twitter untuk halaman ini ---
+  openGraph: {
+    // Tipe 'website' (dari layout) sudah cocok untuk halaman indeks blog.
+    // Jika ini halaman detail artikel, tipenya harus 'article'.
+    title: "Blog & Artikel Keuangan Terbaru | Adapundi",
+    description:
+      "Jelajahi blog Adapundi untuk menemukan artikel, berita, dan informasi terkini seputar keuangan, tips pinjaman, dan solusi finansial terpercaya.",
+    url: "/blog", // URL spesifik halaman ini
+    images: [
+      {
+        url: "/twitter-card-1200x630.png", // Fallback image
+        width: 1200,
+        height: 630,
+        alt: "Blog Adapundi",
+      },
+    ],
+  },
+  twitter: {
+    title: "Blog & Artikel Keuangan Terbaru | Adapundi",
+    description:
+      "Jelajahi blog Adapundi untuk menemukan artikel, berita, dan informasi terkini seputar keuangan, tips pinjaman, dan solusi finansial terpercaya.",
+    images: [
+      {
+        url: "/twitter-card-1200x630.png", // Fallback image
+        width: 1200,
+        height: 630,
+        alt: "Adapundi Twitter Card",
+      },
+    ],
+  },
+};
 
 // Props 'searchParams' secara otomatis disediakan oleh Next.js di Server Component
 interface BlogPageProps {
@@ -11,21 +59,26 @@ interface BlogPageProps {
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  // 1. Tentukan kategori yang dipilih dari URL, default ke "All"
+  // Ambil data dari server
   const selectedCategory = searchParams.category || "All";
-
-  // 2. Ambil data di server berdasarkan kategori yang dipilih
-  // Promise.all untuk efisiensi
   const [posts, categoriesData] = await Promise.all([
     getStrapiPosts(selectedCategory),
     getStrapiCategories(),
   ]);
-
-  // Tambahkan "All" ke daftar kategori untuk ditampilkan sebagai filter
   const allCategories: Category[] = [{ id: 0, name: "All" }, ...categoriesData];
+
+  // 2. Buat skema Breadcrumb JSON-LD
+  const breadcrumbSchema = generateBreadcrumbSchema(["home", "blog"]);
 
   return (
     <>
+      {/* Sisipkan JSON-LD Schema untuk Breadcrumb */}
+      <script
+        key="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <HeroTitle
         title="Terkini di Adapundi"
         description="Cek berita dan kegiatan terbaru di sini"

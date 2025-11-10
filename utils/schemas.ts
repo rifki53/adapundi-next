@@ -38,6 +38,7 @@ export const BREADCRUMB_ITEMS: BreadcrumbItems = {
     name: "Kisah Inspiratif",
     item: "https://www.adapundi.com/testimonial",
   },
+  blog: { name: "Artikel", item: "https://www.adapundi.com/blog" },
   riplay: { name: "RIPLAY", item: "https://www.adapundi.com/riplay" },
   antifraud: { name: "Antifraud", item: "https://www.adapundi.com/antifraud" },
   faq: { name: "FAQ", item: "https://www.adapundi.com/faq" },

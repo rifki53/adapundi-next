@@ -14,22 +14,24 @@ import RegulatorSectionHome from "@/components/home/regulator-section-home";
 
 // 1. Definisikan Metadata SPESIFIK untuk Halaman Home
 export const metadata: Metadata = {
-  title: "Aplikasi Pinjaman Daring Cepat Cair & Terpercaya", // Ini akan menjadi: "Aplikasi Pinjaman... | Adapundi"
+  // DIPERBARUI: Menyamakan dengan metadata default sesuai referensi Vue
+  title: "Adapundi: Aplikasi Pinjaman Daring Terpercaya",
   description:
-    "Pinjaman online cepat cair dari Adapundi. Proses mudah, aman, dan terpercaya oleh jutaan pengguna. Ajukan pinjaman dana tunai Anda sekarang juga!",
+    "Pinjaman aman dipercaya hampir 30 juta pengguna, dengan 14 juta+ pencairan telah disalurkan, serta berizin dan diawasi selama 7 tahun. Download Adapundi sekarang!",
 
   alternates: {
-    canonical: "https://www.adapundi.com", // URL kanonis untuk halaman ini
+    canonical: "/", // Cukup gunakan "/" karena metadataBase sudah ada di layout
   },
 
   // --- Override Open Graph & Twitter untuk halaman ini ---
   openGraph: {
-    title: "Aplikasi Pinjaman Daring Cepat Cair & Terpercaya",
+    title: "Adapundi: Aplikasi Pinjaman Daring Terpercaya",
     description:
-      "Pinjaman online cepat cair dari Adapundi. Proses mudah, aman, dan terpercaya.",
+      "Pinjaman aman dipercaya hampir 30 juta pengguna, dengan 14 juta+ pencairan telah disalurkan, serta berizin dan diawasi selama 7 tahun. Download Adapundi sekarang!",
+    // DIPERBARUI: Gunakan path relatif. Next.js akan menggabungkannya dengan metadataBase
     images: [
       {
-        url: "https://www.adapundi.com/og-image.png", // Gambar spesifik untuk homepage
+        url: "/twitter-card-1200x630.png", // Path dari folder /public
         width: 1200,
         height: 630,
         alt: "Adapundi - Pinjaman Online Terpercaya",
@@ -37,14 +39,14 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "Aplikasi Pinjaman Daring Cepat Cair & Terpercaya",
+    title: "Adapundi: Aplikasi Pinjaman Daring Terpercaya",
     description:
-      "Pinjaman online cepat cair dari Adapundi. Proses mudah, aman, dan terpercaya.",
+      "Pinjaman aman dipercaya hampir 30 juta pengguna, dengan 14 juta+ pencairan telah disalurkan, serta berizin dan diawasi selama 7 tahun. Download Adapundi sekarang!",
     images: [
       {
-        url: "https://www.adapundi.com/twitter-card-1200x630.png", // Gambar Twitter spesifik
+        url: "/twitter-card-1200x630.png", // Path dari folder /public
         width: 1200,
-        height: 600,
+        height: 630, // Disesuaikan agar konsisten
         alt: "Adapundi Twitter Card",
       },
     ],
