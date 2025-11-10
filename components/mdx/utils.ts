@@ -1,60 +1,139 @@
-import fs from "fs";
-import path from "path";
+import { notFound } from 'next/navigation';
 
-type Metadata = {
+// --- Konstanta & Tipe Data ---
+const STRAPI_API_URL = process.env.STRAPI_API_URL || "https://cms.adapundi.com";
+const DEBUG = process.env.NODE_ENV === 'development';
+
+interface PostSummary {
+  slug: string;
   title: string;
+}
+
+interface PostMetadata {
+  title: string;
+  description?: string;
   publishedAt: string;
   updatedAt?: string;
-  summary?: string;
   author?: string;
-  authorImg?: string;
-  kind?: string;
+  category?: string;
+  image?: string | null;
+  readingTime: number;
+}
+
+export interface Post {
+  slug: string;
+  content: string; // Konten MDX
+  metadata: PostMetadata;
+}
+
+// --- Fungsi Helper ---
+function logDebug(...args: any[]) {
+  if (DEBUG) console.debug("[Strapi Fetcher]", ...args);
+}
+
+const calculateReadingTime = (blocks: any[] | null): number => {
+    if (!blocks || !blocks.length) return 1;
+    const richTextBlock = blocks.find(
+      (block) => block.__component === "shared.rich-text"
+    );
+    if (!richTextBlock || !richTextBlock.body) return 1;
+    const words = richTextBlock.body.split(/\s+/).length;
+    const wordsPerMinute = 225;
+    return Math.ceil(words / wordsPerMinute);
 };
 
-function parseFrontmatter(fileContent: string) {
-  const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
-  const match = frontmatterRegex.exec(fileContent);
-  const frontMatterBlock = match![1];
-  const content = fileContent.replace(frontmatterRegex, "").trim();
-  const frontMatterLines = frontMatterBlock.trim().split("\n");
-  const metadata: Partial<Metadata> = {};
+/**
+ * Mengubah data mentah dari Strapi menjadi format Post yang konsisten.
+ */
+function transformStrapiData(item: any): Post {
+  const richTextBlock = item.blocks?.find(
+    (block: any) => block.__component === "shared.rich-text"
+  );
 
-  frontMatterLines.forEach((line) => {
-    const [key, ...valueArr] = line.split(": ");
-    let value = valueArr.join(": ").trim();
-    value = value.replace(/^['"](.*)['"]$/, "$1"); // Remove quotes
-    metadata[key.trim() as keyof Metadata] = value;
-  });
+  const imageUrl = item.cover?.formats?.small?.url
+    ? `${STRAPI_API_URL}${item.cover.formats.small.url}`
+    : (item.cover?.url ? `${STRAPI_API_URL}${item.cover.url}` : null);
 
-  return { metadata: metadata as Metadata, content };
+  return {
+    slug: item.slug,
+    content: richTextBlock ? richTextBlock.body : "",
+    metadata: {
+      title: item.title,
+      description: item.description,
+      publishedAt: item.publishedAt,
+      updatedAt: item.updatedAt,
+      author: item.author?.name || "Adapundi Team",
+      category: item.category?.name || "General",
+      image: imageUrl,
+      readingTime: calculateReadingTime(item.blocks),
+    }
+  };
 }
 
-function getMDXFiles(dir: string) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+/**
+ * Mengambil semua postingan blog dari Strapi.
+ * Ini adalah pengganti untuk getBlogPosts() yang berbasis file.
+ * Digunakan di halaman daftar blog (server component).
+ */
+export async function getStrapiPosts(): Promise<Post[]> {
+  logDebug("Fetching all posts...");
+  const url = `${STRAPI_API_URL}/api/articles?populate=*&sort[0]=publishedAt:desc`;
+
+  try {
+    const response = await fetch(url, { next: { revalidate: 3600 } }); // Revalidasi setiap 1 jam
+    if (!response.ok) throw new Error("Gagal mengambil daftar post dari Strapi.");
+    
+    const jsonResponse = await response.json();
+    if (!jsonResponse.data) return [];
+
+    return jsonResponse.data.map(transformStrapiData);
+  } catch (error) {
+    console.error("Error fetching posts from Strapi:", error);
+    return []; // Kembalikan array kosong jika terjadi error
+  }
 }
 
-function readMDXFile(filePath: string) {
-  const rawContent = fs.readFileSync(filePath, "utf-8");
-  return parseFrontmatter(rawContent);
-}
+/**
+ * Mengambil satu post berdasarkan slug-nya, beserta data navigasi (prev/next).
+ * Ini adalah pengganti untuk logika `find` di halaman detail post.
+ * Digunakan di halaman detail blog [slug] (server component).
+ */
+export async function getStrapiPostBySlug(slug: string) {
+  logDebug(`Fetching post by slug: ${slug}`);
+  
+  const postUrl = `${STRAPI_API_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`;
+  const allPostsNavUrl = `${STRAPI_API_URL}/api/articles?sort[0]=publishedAt:desc&fields[0]=slug&fields[1]=title`;
 
-function getMDXData(dir: string) {
-  const mdxFiles = getMDXFiles(dir);
-  return mdxFiles.map((file) => {
-    const { metadata, content } = readMDXFile(path.join(dir, file));
-    const slug = path.basename(file, path.extname(file));
-    return {
-      metadata,
-      slug,
-      content,
-    };
-  });
-}
+  try {
+    const [postResponse, allPostsNavResponse] = await Promise.all([
+      fetch(postUrl),
+      fetch(allPostsNavUrl)
+    ]);
 
-export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), "content/blog"));
-}
+    if (!postResponse.ok) throw new Error(`Gagal mengambil data post untuk slug: ${slug}`);
+    if (!allPostsNavResponse.ok) throw new Error("Gagal mengambil data navigasi post.");
 
-export function getDocPages() {
-  return getMDXData(path.join(process.cwd(), "content/docs"));
+    const postJson = await postResponse.json();
+    if (!postJson.data || postJson.data.length === 0) {
+      // Jika post tidak ditemukan, panggil fungsi notFound() dari Next.js
+      return notFound();
+    }
+
+    const post = transformStrapiData(postJson.data[0]);
+
+    // Logika untuk menemukan post sebelum dan sesudahnya
+    const allPostsNavData = (await allPostsNavResponse.json()).data as PostSummary[];
+    const currentIndex = allPostsNavData.findIndex(p => p.slug === slug);
+
+    const nextPost = currentIndex > 0 ? allPostsNavData[currentIndex - 1] : null;
+    const prevPost = currentIndex < allPostsNavData.length - 1 ? allPostsNavData[currentIndex + 1] : null;
+
+    logDebug("Navigation found:", { prev: prevPost, next: nextPost });
+
+    return { post, prevPost, nextPost };
+
+  } catch (error) {
+    console.error(`Error fetching post by slug (${slug}):`, error);
+    return notFound(); // Tampilkan halaman 404 jika ada error
+  }
 }
