@@ -1,4 +1,4 @@
-import PageIllustration from "@/components/del/page-illustration";
+import PageIllustration from "@/components/page-illustration";
 
 export default function Hero() {
   return (

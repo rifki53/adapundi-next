@@ -6,7 +6,7 @@ import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi";
 import { extractHeadings } from "@/lib/mdxUtils"; // <-- Impor helper baru
 import { CustomMDX } from "@/components/mdx/mdx";
 
-import PageIllustration from "@/components/del/page-illustration";
+import PageIllustration from "@/components/page-illustration";
 import PostNav from "./post-nav";
 
 export async function generateMetadata({
