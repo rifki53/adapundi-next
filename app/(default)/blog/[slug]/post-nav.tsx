@@ -1,42 +1,55 @@
-"use client";
+import Link from 'next/link';
 
-import useScrollSpy from "@/utils/useScrollSpy";
-import type { Heading } from "@/lib/mdxUtils"; // <-- Impor tipe data
+// Tipe ini cocok dengan data navigasi yang dikirim oleh getStrapiPostBySlug
+interface NavPost {
+  slug: string;
+  title: string;
+}
 
-export default function PostNav({ headings }: { headings: Heading[] }) {
-  const ids = headings.map((h) => h.id);
+interface PostNavProps {
+  previousPost?: NavPost | null;
+  nextPost?: NavPost | null;
+}
 
-  const activeId = useScrollSpy(ids, { offset: 120 }); // Sesuaikan offset jika perlu
-
-  if (headings.length === 0) {
+export default function PostNav({ previousPost, nextPost }: PostNavProps) {
+  // Jika tidak ada post sebelum atau sesudahnya, jangan render komponen ini
+  if (!previousPost && !nextPost) {
     return null;
   }
 
   return (
-    <aside className="ml-6 w-60 shrink-0 max-md:hidden">
-      <nav className="sticky top-24 border-l border-r p-5 [border-image:linear-gradient(to_bottom,transparent,theme(colors.slate.300/.5),transparent)1]">
-        <div className="font-bold">On this page</div>
-        <ul className="mt-2 space-y-2 text-sm">
-          {headings.map((heading) => (
-            <li key={heading.id}>
-              <a
-                // Terapkan kelas 'scrollspy-active' jika ID-nya cocok dengan activeId dari hook
-                className={`
-                  hover:text-gray-900
-                  ${
-                    activeId === heading.id
-                      ? "text-sky-500"
-                      : "text-gray-700"
-                  }
-                `}
-                href={`#${heading.id}`}
-              >
-                {heading.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </aside>
+    <div className="text-center md:text-left">
+      <div className="grid sm:grid-cols-2 gap-8 items-start">
+        
+        {/* Kolom untuk Artikel Sebelumnya */}
+        <div className="text-center md:text-left">
+          {previousPost && (
+            <>
+              <div className="text-sm text-gray-500 mb-1">← Postingan Sebelumnya</div>
+              <h4 className="text-lg font-medium">
+                <Link className="text-gray-800 hover:underline" href={`/blog/${previousPost.slug}`}>
+                  {previousPost.title}
+                </Link>
+              </h4>
+            </>
+          )}
+        </div>
+
+        {/* Kolom untuk Artikel Selanjutnya */}
+        <div className="text-center md:text-right">
+          {nextPost && (
+            <>
+              <div className="text-sm text-gray-500 mb-1">Postingan Selanjutnya →</div>
+              <h4 className="text-lg font-medium">
+                <Link className="text-gray-800 hover:underline" href={`/blog/${nextPost.slug}`}>
+                  {nextPost.title}
+                </Link>
+              </h4>
+            </>
+          )}
+        </div>
+        
+      </div>
+    </div>
   );
 }

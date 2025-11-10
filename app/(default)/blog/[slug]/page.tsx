@@ -1,92 +1,106 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 
-// Impor yang dibutuhkan
+// Impor fungsi dan tipe yang benar dari hooks/strapi
 import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi"; 
-import { CustomMDX } from "@/components/mdx/mdx";
-import PageIllustration from "@/components/page-illustration";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata | undefined> {
+// Impor komponen PostNav (pastikan path-nya benar)
+import PostNav from "./post-nav";
+
+// Props untuk halaman dinamis
+interface PostPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+// Generate metadata dinamis berdasarkan slug
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  // Menangani 'params' sebagai Promise jika diperlukan
   const resolvedParams = await params;
   const data = await getStrapiPostBySlug(resolvedParams.slug);
 
   if (!data || !data.post) {
-    return;
+    return {
+      title: "Post Not Found",
+    };
   }
   
-  const { title, description } = data.post.metadata;
+  const post = data.post;
 
   return {
-    title,
-    description,
+    title: post.metadata.title,
+    description: post.metadata.description,
+    openGraph: {
+      title: post.metadata.title,
+      description: post.metadata.description,
+      url: `/blog/${post.slug}`,
+      images: [
+        {
+          url: post.metadata.image || "/fallback-image.png",
+          width: 1200,
+          height: 630,
+          alt: post.metadata.title,
+        },
+      ],
+    },
   };
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// Komponen Halaman Detail Artikel
+export default async function PostPage({ params }: PostPageProps) {
+  // 1. Menangani 'params' sebagai Promise untuk versi Next.js yang lebih lama
   const resolvedParams = await params;
-  const { post } = await getStrapiPostBySlug(resolvedParams.slug);
+  
+  // 2. Panggil fungsi untuk mendapatkan semua data sekaligus menggunakan slug yang sudah di-resolve
+  const { post, prevPost, nextPost } = await getStrapiPostBySlug(resolvedParams.slug);
 
+  // Fungsi 'getStrapiPostBySlug' sudah menangani kasus 'not found'
   if (!post) {
-    return <div>Post not found.</div>;
+    return notFound();
   }
 
   return (
     <section className="relative">
-      <PageIllustration />
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Mengubah flex menjadi grid atau block agar PostNav bisa diposisikan berbeda jika diperlukan nanti */}
-        <div className="pb-12 pt-32 md:pb-20 md:pt-40">
-          {/* Wrapper untuk konten utama */}
-          <div className="max-w-3xl mx-auto"> {/* mx-auto untuk menengahkan jika PostNav dihilangkan */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+          <div className="max-w-3xl mx-auto">
             <article>
-              <header className="mb-10 max-w-3xl">
-                <h1 className="text-4xl font-bold md:text-5xl">
-                  {post.metadata.title}
-                </h1>
-                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600">
-                  <span className="font-medium text-gray-900">
-                    {post.metadata.author}
-                  </span>
-                  <span>·</span>
-                  <span>{formatDate(post.metadata.publishedAt)}</span>
-                  <span>·</span>
-                  <span>{post.metadata.readingTime} min read</span>
+              <header className="mb-8">
+                {/* Judul dan meta */}
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">{post.metadata.title}</h1>
+                <div className="text-lg text-gray-500">
+                  Oleh {post.metadata.author} · {formatDate(post.metadata.publishedAt)} · {post.metadata.readingTime} mnt baca
                 </div>
-                {post.metadata.image && (
-                  <figure className="my-8">
-                    <Image
-                      src={post.metadata.image}
-                      alt={post.metadata.title}
-                      width={928}
-                      height={522}
-                      className="w-full rounded-lg shadow-lg"
-                      priority
-                    />
-                  </figure>
-                )}
               </header>
 
-              <div className="prose max-w-none prose-h2:scroll-mt-24">
-                {/* Langsung teruskan konten Markdown mentah ke CustomMDX */}
-                <CustomMDX source={post.content} />
-              </div>
+              {/* Gambar utama */}
+              {post.metadata.image && (
+                <figure className="mb-8">
+                  <Image
+                    className="w-full rounded"
+                    src={post.metadata.image}
+                    width={1024}
+                    height={576}
+                    alt={post.metadata.title}
+                    priority
+                  />
+                </figure>
+              )}
+
+              {/* Konten artikel */}
+              <div
+                className="prose lg:prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              ></div>
+
+              {/* --- NAVIGASI POST --- */}
+              <footer className="mt-12 pt-8 border-t border-gray-200">
+                <PostNav previousPost={prevPost} nextPost={nextPost} />
+              </footer>
             </article>
           </div>
-
-          {/* 
-            PostNav dinonaktifkan karena headings tidak lagi diekstrak di sini.
-            Fungsi pembuatan ID untuk heading sekarang ditangani oleh `rehype-slug`
-            di dalam komponen CustomMDX Anda.
-          */}
-          {/* <PostNav headings={headings} /> */}
         </div>
       </div>
     </section>
