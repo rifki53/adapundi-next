@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
-// Ganti sumber import jika Anda memindahkannya
+// Impor yang dibutuhkan
 import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi"; 
-import { extractHeadings } from "@/lib/mdxUtils"; // <-- Impor helper baru
 import { CustomMDX } from "@/components/mdx/mdx";
-
 import PageIllustration from "@/components/page-illustration";
-import PostNav from "./post-nav";
+// import PostNav from "./post-nav"; // Dinonaktifkan untuk sementara
+// import { extractHeadings } from "@/lib/mdxUtils"; // Tidak lagi diperlukan
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata | undefined> {
-  const data = await getStrapiPostBySlug(params.slug);
+  const resolvedParams = await params;
+  const data = await getStrapiPostBySlug(resolvedParams.slug);
 
   if (!data || !data.post) {
     return;
@@ -33,34 +33,38 @@ export default async function PostPage({
 }: {
   params: { slug: string };
 }) {
-  const { post } = await getStrapiPostBySlug(params.slug);
+  const resolvedParams = await params;
+  const { post } = await getStrapiPostBySlug(resolvedParams.slug);
 
-  // 1. Ekstrak judul dari konten di server
-  const headings = extractHeadings(post.content);
+  if (!post) {
+    // Anda bisa mengaktifkan notFound() jika diinginkan
+    // import { notFound } from 'next/navigation';
+    // notFound();
+    return <div>Post not found.</div>;
+  }
 
-  // 2. Modifikasi konten untuk menambahkan ID ke setiap h2
-  const contentWithIds = post.content.replace(/^##\s+(.*)/gm, (match, text) => {
-    const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[?]/g, '');
-    return `<h2 id="${id}">${text}</h2>`;
-  });
+  // --- LOGIKA YANG MENYEBABKAN ERROR TELAH DIHAPUS ---
+  // const headings = extractHeadings(post.content); // <-- DIHAPUS
+  // const contentWithIds = post.content.replace(...) // <-- DIHAPUS
 
   return (
     <section className="relative">
       <PageIllustration />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex justify-between pb-12 pt-32 md:pb-20 md:pt-40">
-          <div className="max-w-3xl">
+        {/* Mengubah flex menjadi grid atau block agar PostNav bisa diposisikan berbeda jika diperlukan nanti */}
+        <div className="pb-12 pt-32 md:pb-20 md:pt-40">
+          {/* Wrapper untuk konten utama */}
+          <div className="max-w-3xl mx-auto"> {/* mx-auto untuk menengahkan jika PostNav dihilangkan */}
             <article>
               <header className="mb-10 max-w-3xl">
                 <h1 className="text-4xl font-bold md:text-5xl">
                   {post.metadata.title}
                 </h1>
-                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600">
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600">
                   <span className="font-medium text-gray-900">
                     {post.metadata.author}
                   </span>
                   <span>·</span>
-                  {/* Gunakan formatDate dari utilitas baru */}
                   <span>{formatDate(post.metadata.publishedAt)}</span>
                   <span>·</span>
                   <span>{post.metadata.readingTime} min read</span>
@@ -80,13 +84,18 @@ export default async function PostPage({
               </header>
 
               <div className="prose max-w-none prose-h2:scroll-mt-24">
-                <CustomMDX source={contentWithIds} />
+                {/* Langsung teruskan konten Markdown mentah ke CustomMDX */}
+                <CustomMDX source={post.content} />
               </div>
             </article>
           </div>
 
-          {/* 4. Kirim data headings ke PostNav sebagai prop */}
-          <PostNav headings={headings} />
+          {/* 
+            PostNav dinonaktifkan karena headings tidak lagi diekstrak di sini.
+            Fungsi pembuatan ID untuk heading sekarang ditangani oleh `rehype-slug`
+            di dalam komponen CustomMDX Anda.
+          */}
+          {/* <PostNav headings={headings} /> */}
         </div>
       </div>
     </section>
