@@ -5,8 +5,6 @@ import Image from "next/image";
 import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi"; 
 import { CustomMDX } from "@/components/mdx/mdx";
 import PageIllustration from "@/components/page-illustration";
-// import PostNav from "./post-nav"; // Dinonaktifkan untuk sementara
-// import { extractHeadings } from "@/lib/mdxUtils"; // Tidak lagi diperlukan
 
 export async function generateMetadata({
   params,
@@ -37,15 +35,8 @@ export default async function PostPage({
   const { post } = await getStrapiPostBySlug(resolvedParams.slug);
 
   if (!post) {
-    // Anda bisa mengaktifkan notFound() jika diinginkan
-    // import { notFound } from 'next/navigation';
-    // notFound();
     return <div>Post not found.</div>;
   }
-
-  // --- LOGIKA YANG MENYEBABKAN ERROR TELAH DIHAPUS ---
-  // const headings = extractHeadings(post.content); // <-- DIHAPUS
-  // const contentWithIds = post.content.replace(...) // <-- DIHAPUS
 
   return (
     <section className="relative">

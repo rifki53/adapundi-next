@@ -59,8 +59,11 @@ interface BlogPageProps {
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  // Ambil data dari server
-  const selectedCategory = searchParams.category || "All";
+  // Tambahkan await untuk me-resolve searchParams sepenuhnya
+  const resolvedSearchParams = await searchParams;
+
+  // Ambil data dari server menggunakan resolvedSearchParams
+  const selectedCategory = resolvedSearchParams.category || "All";
   const [posts, categoriesData] = await Promise.all([
     getStrapiPosts(selectedCategory),
     getStrapiCategories(),
@@ -88,13 +91,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <section className="relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="mx-auto pt-10 pb-12 md:pb-20">
-            <div className="flex flex-wrap gap-2 mb-10">
-              <BlogList
-                posts={posts}
-                categories={allCategories}
-                selectedCategory={selectedCategory}
-              />
-            </div>
+            {/* Komponen BlogList sekarang menerima semua data sebagai props */}
+            <BlogList
+              posts={posts}
+              categories={allCategories}
+              selectedCategory={selectedCategory}
+            />
           </div>
         </div>
       </section>
