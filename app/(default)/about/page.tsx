@@ -13,7 +13,7 @@ export const metadata = {
   description: "Page description",
 };
 
-export default function Loans() {
+export default function About() {
   return (
     <>
       <HeroAbout />

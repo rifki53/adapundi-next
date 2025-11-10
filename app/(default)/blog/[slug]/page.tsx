@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
-// GANTI IMPORT INI
+// Ganti sumber import jika Anda memindahkannya
 import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi"; 
+import { extractHeadings } from "@/lib/mdxUtils"; // <-- Impor helper baru
 import { CustomMDX } from "@/components/mdx/mdx";
 
 import PageIllustration from "@/components/del/page-illustration";
-import PostNav from "./post-nav"; // Asumsi komponen ini juga diupdate untuk menerima prev/next post
+import PostNav from "./post-nav";
 
-// Fungsi generateMetadata sudah benar, hanya ganti sumber import
 export async function generateMetadata({
   params,
 }: {
@@ -33,14 +33,21 @@ export default async function PostPage({
 }: {
   params: { slug: string };
 }) {
-  // Panggil sekali, Next.js akan otomatis men-deduplikasi request
-  const { post,  } = await getStrapiPostBySlug(params.slug);
+  const { post } = await getStrapiPostBySlug(params.slug);
+
+  // 1. Ekstrak judul dari konten di server
+  const headings = extractHeadings(post.content);
+
+  // 2. Modifikasi konten untuk menambahkan ID ke setiap h2
+  const contentWithIds = post.content.replace(/^##\s+(.*)/gm, (match, text) => {
+    const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[?]/g, '');
+    return `<h2 id="${id}">${text}</h2>`;
+  });
 
   return (
     <section className="relative">
       <PageIllustration />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Pass prevPost dan nextPost ke komponen yang membutuhkan */}
         <div className="flex justify-between pb-12 pt-32 md:pb-20 md:pt-40">
           <div className="max-w-3xl">
             <article>
@@ -48,7 +55,7 @@ export default async function PostPage({
                 <h1 className="text-4xl font-bold md:text-5xl">
                   {post.metadata.title}
                 </h1>
-                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600">
+                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600">
                   <span className="font-medium text-gray-900">
                     {post.metadata.author}
                   </span>
@@ -72,14 +79,14 @@ export default async function PostPage({
                 )}
               </header>
 
-              <div className="prose max-w-none ...">
-                <CustomMDX source={post.content} />
+              <div className="prose max-w-none prose-h2:scroll-mt-24">
+                <CustomMDX source={contentWithIds} />
               </div>
             </article>
           </div>
 
-          {/* Pastikan PostNav menerima prevPost dan nextPost sebagai props */}
-          <PostNav />
+          {/* 4. Kirim data headings ke PostNav sebagai prop */}
+          <PostNav headings={headings} />
         </div>
       </div>
     </section>

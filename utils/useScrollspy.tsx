@@ -1,4 +1,4 @@
-// useScrollSpy.ts
+// utils/useScrollSpy.ts
 import { useState, useEffect } from "react";
 
 const useScrollSpy = () => {
