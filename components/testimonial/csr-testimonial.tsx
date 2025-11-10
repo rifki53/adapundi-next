@@ -11,10 +11,6 @@ import { Navigation } from "swiper/modules";
 import { useContent } from "@/hooks/useContent";
 import { isMobile } from "@/utils/isMobile";
 
-// Impor CSS untuk Swiper
-import "swiper/css";
-import "swiper/css/navigation";
-
 // Hapus interface props karena tidak lagi digunakan
 // interface CsrCarouselProps {
 //   category: string;

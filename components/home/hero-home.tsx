@@ -7,31 +7,22 @@ import Image, { StaticImageData } from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
-
-import styles from "./hero-home.module.css";
-
 // --- Impor Gambar Manual ---
-// Desktop
+// (Semua impor gambar Anda tetap sama)
 import bgImage01Desktop from "@/public/images/bgslide/horizontal/h1.png";
 import bgImage02Desktop from "@/public/images/bgslide/horizontal/h2.png";
 import bgImage03Desktop from "@/public/images/bgslide/horizontal/h3.png";
 import bgImage04Desktop from "@/public/images/bgslide/horizontal/h4.png";
-// Mobile
 import bgImage01Mobile from "@/public/images/bgslide/vertical/v1.png";
 import bgImage02Mobile from "@/public/images/bgslide/vertical/v2.png";
 import bgImage03Mobile from "@/public/images/bgslide/vertical/v3.png";
 import bgImage04Mobile from "@/public/images/bgslide/vertical/v4.png";
-// Logo Tombol
 import androidLogo from "@/public/images/download/android-cta-logo.png";
 import iosLogo from "@/public/images/download/ios-cta-logo.png";
 import androidQR from "@/public/images/download/gp_qr_code.png";
 import iosQR from "@/public/images/download/ios_qr_code.png";
 
-// --- Definisi Tipe ---
+// --- Definisi Tipe & Data (tetap sama) ---
 type Slide = {
   title: string;
   description: string;
@@ -40,7 +31,6 @@ type Slide = {
   link: string | null;
 };
 
-// --- Data ---
 const slides: Slide[] = [
   {
     title: "7 Tahun Melayani\nPilihan Jutaan Pengguna",
@@ -73,7 +63,6 @@ const slides: Slide[] = [
 ];
 
 const downloadButtons = [
-  /* ... data tombol Anda tetap sama ... */
   {
     platform: "Android",
     href: "https://adapundi.onelink.me/cN17/em5uj56b",
@@ -103,8 +92,14 @@ export default function HeroHome() {
 
   return (
     <section className="relative">
+      {/* 1. Tambahkan blok <style> untuk menargetkan class global Swiper */}
+      <style jsx global>{`
+        .swiper-pagination-bullet {
+          background-color: #ffffff !important;
+        }
+      `}</style>
+      
       <Swiper
-        // ... props Swiper Anda tetap sama ...
         className="h-full w-screen lg:w-full"
         modules={[Pagination, Autoplay]}
         slidesPerView={1}
@@ -125,7 +120,6 @@ export default function HeroHome() {
           return (
             <SwiperSlide key={index}>
               <Component
-                // ... props Component Anda tetap sama ...
                 href={slide.link ?? undefined}
                 target={slide.link ? "_blank" : undefined}
                 rel={slide.link ? "nofollow noopener noreferrer" : undefined}
@@ -168,7 +162,8 @@ export default function HeroHome() {
                               alt={`${button.platform} Download`}
                             />
                             {hoveredPlatform === button.platform && !isMobileOrTablet && (
-                              <div className={`${styles.hoverPopup} rounded-t-xl bg-white px-4 pb-2 pt-4 z-20`}>
+                              // 2. Ganti class dari CSS module dengan utility class Tailwind
+                              <div className="absolute bottom-full left-0 right-0 z-20 flex justify-center rounded-t-xl bg-white px-4 pb-2 pt-4">
                                 <Image
                                   src={button.qrCode}
                                   className="w-full max-w-[120px]"
