@@ -1,22 +1,25 @@
+// lib/strapi.ts
+
 import { notFound } from 'next/navigation';
 
 // --- Konstanta & Tipe Data ---
-const STRAPI_API_URL = process.env.STRAPI_API_URL || "https://cms.adapundi.com";
+const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || "https://cms.adapundi.com";
 const DEBUG = process.env.NODE_ENV === 'development';
 
-interface PostSummary {
+// --- Tipe Data ---
+export interface PostSummary {
   slug: string;
   title: string;
 }
 
-interface PostMetadata {
+export interface PostMetadata {
   title: string;
-  description?: string;
+  description: string;
   publishedAt: string;
   updatedAt?: string;
-  author?: string;
-  category?: string;
-  image?: string | null;
+  author: string;
+  category: string;
+  image: string | null;
   readingTime: number;
 }
 
@@ -26,9 +29,15 @@ export interface Post {
   metadata: PostMetadata;
 }
 
-// --- Fungsi Helper ---
+export interface Category {
+  id: number;
+  name: string;
+}
+
+
+// --- Fungsi Helper Internal ---
 function logDebug(...args: any[]) {
-  if (DEBUG) console.debug("[Strapi Fetcher]", ...args);
+  if (DEBUG) console.debug("[Strapi API]", ...args);
 }
 
 const calculateReadingTime = (blocks: any[] | null): number => {
@@ -50,6 +59,7 @@ function transformStrapiData(item: any): Post {
     (block: any) => block.__component === "shared.rich-text"
   );
 
+  // Menggunakan gambar format 'small' untuk list, dan fallback ke URL utama
   const imageUrl = item.cover?.formats?.small?.url
     ? `${STRAPI_API_URL}${item.cover.formats.small.url}`
     : (item.cover?.url ? `${STRAPI_API_URL}${item.cover.url}` : null);
@@ -59,7 +69,7 @@ function transformStrapiData(item: any): Post {
     content: richTextBlock ? richTextBlock.body : "",
     metadata: {
       title: item.title,
-      description: item.description,
+      description: item.description || '',
       publishedAt: item.publishedAt,
       updatedAt: item.updatedAt,
       author: item.author?.name || "Adapundi Team",
@@ -70,17 +80,40 @@ function transformStrapiData(item: any): Post {
   };
 }
 
+// --- Fungsi Ekspor untuk API ---
+
 /**
- * Mengambil semua postingan blog dari Strapi.
- * Ini adalah pengganti untuk getBlogPosts() yang berbasis file.
- * Digunakan di halaman daftar blog (server component).
+ * Mengambil semua kategori post.
  */
-export async function getStrapiPosts(): Promise<Post[]> {
-  logDebug("Fetching all posts...");
-  const url = `${STRAPI_API_URL}/api/articles?populate=*&sort[0]=publishedAt:desc`;
+export async function getStrapiCategories(): Promise<Category[]> {
+  logDebug("Fetching categories...");
+  const url = `${STRAPI_API_URL}/api/categories`;
 
   try {
-    const response = await fetch(url, { next: { revalidate: 3600 } }); // Revalidasi setiap 1 jam
+    const response = await fetch(url, { next: { revalidate: 3600 } }); // Cache 1 jam
+    if (!response.ok) throw new Error("Gagal mengambil kategori.");
+    const jsonResponse = await response.json();
+    return jsonResponse.data.map((cat: any) => ({ id: cat.id, name: cat.name })) || [];
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+}
+
+/**
+ * Mengambil semua postingan blog dari Strapi, dengan opsi filter berdasarkan kategori.
+ */
+export async function getStrapiPosts(categoryName?: string): Promise<Post[]> {
+  logDebug(`Fetching posts for category: ${categoryName || 'All'}`);
+  let url = `${STRAPI_API_URL}/api/articles?populate=*&sort[0]=publishedAt:desc`;
+
+  if (categoryName && categoryName !== "All") {
+    url += `&filters[category][name][$eq]=${categoryName}`;
+  }
+
+  try {
+    // Gunakan revalidate 60 detik untuk daftar post agar lebih sering update
+    const response = await fetch(url, { next: { revalidate: 60 } });
     if (!response.ok) throw new Error("Gagal mengambil daftar post dari Strapi.");
     
     const jsonResponse = await response.json();
@@ -88,15 +121,13 @@ export async function getStrapiPosts(): Promise<Post[]> {
 
     return jsonResponse.data.map(transformStrapiData);
   } catch (error) {
-    console.error("Error fetching posts from Strapi:", error);
-    return []; // Kembalikan array kosong jika terjadi error
+    console.error("Error fetching posts:", error);
+    return [];
   }
 }
 
 /**
  * Mengambil satu post berdasarkan slug-nya, beserta data navigasi (prev/next).
- * Ini adalah pengganti untuk logika `find` di halaman detail post.
- * Digunakan di halaman detail blog [slug] (server component).
  */
 export async function getStrapiPostBySlug(slug: string) {
   logDebug(`Fetching post by slug: ${slug}`);
@@ -106,8 +137,8 @@ export async function getStrapiPostBySlug(slug: string) {
 
   try {
     const [postResponse, allPostsNavResponse] = await Promise.all([
-      fetch(postUrl),
-      fetch(allPostsNavUrl)
+      fetch(postUrl, { next: { revalidate: 60 } }), // Cache post individu
+      fetch(allPostsNavUrl, { next: { revalidate: 60 } }) // Cache data navigasi
     ]);
 
     if (!postResponse.ok) throw new Error(`Gagal mengambil data post untuk slug: ${slug}`);
@@ -115,11 +146,14 @@ export async function getStrapiPostBySlug(slug: string) {
 
     const postJson = await postResponse.json();
     if (!postJson.data || postJson.data.length === 0) {
-      // Jika post tidak ditemukan, panggil fungsi notFound() dari Next.js
       return notFound();
     }
 
+    // Gunakan transformStrapiData untuk konsistensi, tapi ambil gambar ukuran penuh
     const post = transformStrapiData(postJson.data[0]);
+    if (postJson.data[0].cover?.url) {
+        post.metadata.image = `${STRAPI_API_URL}${postJson.data[0].cover.url}`;
+    }
 
     // Logika untuk menemukan post sebelum dan sesudahnya
     const allPostsNavData = (await allPostsNavResponse.json()).data as PostSummary[];
@@ -134,6 +168,14 @@ export async function getStrapiPostBySlug(slug: string) {
 
   } catch (error) {
     console.error(`Error fetching post by slug (${slug}):`, error);
-    return notFound(); // Tampilkan halaman 404 jika ada error
+    return notFound();
   }
 }
+
+/**
+ * Fungsi utilitas untuk memformat tanggal, bisa digunakan di mana saja.
+ */
+export function formatDate(dateString: string): string {
+    const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
+};

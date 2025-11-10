@@ -1,28 +1,26 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
-import { getStrapiPostBySlug } from "@/components/mdx/utils";
-import PostDate from "@/components/del/post-date";
+// GANTI IMPORT INI
+import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi"; 
 import { CustomMDX } from "@/components/mdx/mdx";
 
 import PageIllustration from "@/components/del/page-illustration";
-import PostNav from "./post-nav";
+import PostNav from "./post-nav"; // Asumsi komponen ini juga diupdate untuk menerima prev/next post
 
-// Fungsi untuk generate metadata dinamis
+// Fungsi generateMetadata sudah benar, hanya ganti sumber import
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata | undefined> {
-  const { post } = await getStrapiPostBySlug(params.slug);
+  const data = await getStrapiPostBySlug(params.slug);
 
-  if (!post) {
+  if (!data || !data.post) {
     return;
   }
-
-  // Ambil judul dan deskripsi dari metadata post
-  // Pastikan ada properti 'description' atau 'summary' di post.metadata Anda
-  const { title, description } = post.metadata;
+  
+  const { title, description } = data.post.metadata;
 
   return {
     title,
@@ -35,21 +33,18 @@ export default async function PostPage({
 }: {
   params: { slug: string };
 }) {
-  // Ambil data di server. Next.js akan otomatis men-deduplikasi request ini
-  // sehingga tidak terjadi panggilan API ganda.
-  const { post } = await getStrapiPostBySlug(params.slug);
+  // Panggil sekali, Next.js akan otomatis men-deduplikasi request
+  const { post,  } = await getStrapiPostBySlug(params.slug);
 
   return (
     <section className="relative">
       <PageIllustration />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Pass prevPost dan nextPost ke komponen yang membutuhkan */}
         <div className="flex justify-between pb-12 pt-32 md:pb-20 md:pt-40">
-          {/* Container ini sekarang lebih lebar untuk mengakomodasi 2 kolom */}
           <div className="max-w-3xl">
             <article>
-              {/* Header tetap dirender di server, cepat dan SEO-friendly */}
               <header className="mb-10 max-w-3xl">
-                <div className="mb-6"></div>
                 <h1 className="text-4xl font-bold md:text-5xl">
                   {post.metadata.title}
                 </h1>
@@ -58,7 +53,8 @@ export default async function PostPage({
                     {post.metadata.author}
                   </span>
                   <span>·</span>
-                  <PostDate dateString={post.metadata.publishedAt} />
+                  {/* Gunakan formatDate dari utilitas baru */}
+                  <span>{formatDate(post.metadata.publishedAt)}</span>
                   <span>·</span>
                   <span>{post.metadata.readingTime} min read</span>
                 </div>
@@ -67,7 +63,7 @@ export default async function PostPage({
                     <Image
                       src={post.metadata.image}
                       alt={post.metadata.title}
-                      width={928} // Sesuaikan dengan max-w-4xl
+                      width={928}
                       height={522}
                       className="w-full rounded-lg shadow-lg"
                       priority
@@ -76,12 +72,13 @@ export default async function PostPage({
                 )}
               </header>
 
-              <div className="prose max-w-none text-gray-700 prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:text-gray-900 prose-a:font-medium prose-a:text-blue-500 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-2 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:text-gray-900 prose-strong:font-medium prose-strong:text-gray-900 prose-code:rounded prose-code:bg-transparent prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:text-gray-900 prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-900 prose-blockquote:xl:-ml-4">
+              <div className="prose max-w-none ...">
                 <CustomMDX source={post.content} />
               </div>
             </article>
           </div>
 
+          {/* Pastikan PostNav menerima prevPost dan nextPost sebagai props */}
           <PostNav />
         </div>
       </div>

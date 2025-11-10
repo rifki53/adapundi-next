@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
 // Impor custom hooks dan utilitas
-import { useContent } from "@/hooks/useContent";
+import { useContent } from "@/hooks/strapi";
 import { isMobile } from "@/utils/isMobile";
 
 // Impor CSS untuk Swiper
