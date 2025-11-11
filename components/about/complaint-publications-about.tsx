@@ -32,7 +32,7 @@ export default function ComplaintPublicationsAbout() {
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
           {/* Header in Indonesian */}
           <div className="bg-custom-green3 px-6 py-3">
-            <span className="font-inter text-sm font-medium text-gray-900">
+            <span className="font-sans text-sm font-medium text-gray-900">
               Lihat Lampiran
             </span>
           </div>
@@ -49,7 +49,7 @@ export default function ComplaintPublicationsAbout() {
                 <div className="flex cursor-pointer items-center gap-2.5 border-b border-gray-200 px-6 py-3 text-gray-500 transition-colors duration-200 hover:bg-[#e2e7f0] hover:text-gray-900 last:border-b-0">
                   <ImageIcon />
                   {/* Trigger text in Indonesian */}
-                  <span className="font-inter text-sm font-medium">
+                  <span className="font-sans text-sm font-medium">
                     Publikasi Pengaduan Konsumen PT Info Tekno Siaga {item.year}
                   </span>
                 </div>

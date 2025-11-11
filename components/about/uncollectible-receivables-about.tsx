@@ -27,7 +27,7 @@ export default function UncollectibleReceivablesAbout() {
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
           {/* Header in Indonesian */}
           <div className="bg-custom-green3 px-6 py-3">
-            <span className="text-sm font-medium font-inter text-gray-900">
+            <span className="text-sm font-medium font-sans text-gray-900">
               Download Lampiran
             </span>
           </div>
@@ -43,7 +43,7 @@ export default function UncollectibleReceivablesAbout() {
               >
                 <PdfIcon />
                 {/* Link text in Indonesian */}
-                <span className="text-sm font-medium font-inter">
+                <span className="text-sm font-medium font-sans">
                   Daftar Piutang Tidak Tertagih {item.year}
                 </span>
               </a>

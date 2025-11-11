@@ -46,7 +46,7 @@ export default function ReceivablesAndPublicationsAbout() {
           </h2>
           <div className="bg-white">
             <div className="bg-custom-green3 px-6 py-3">
-              <span className="text-sm font-medium font-inter">
+              <span className="text-sm font-medium font-sans">
                 Download Attachment
               </span>
             </div>
@@ -60,7 +60,7 @@ export default function ReceivablesAndPublicationsAbout() {
                   className="flex items-center gap-2.5 px-6 py-3 hover:bg-[#e2e7f0] transition-colors duration-200 text-gray-500 hover:text-gray-900 border-b border-gray-200"
                 >
                   <IconPdf />
-                  <span className="text-sm font-medium font-inter">
+                  <span className="text-sm font-medium font-sans">
                     List of Uncollectible Receivables {item.year}
                   </span>
                 </a>
@@ -78,7 +78,7 @@ export default function ReceivablesAndPublicationsAbout() {
           </h2>
           <div className="bg-white">
             <div className="bg-custom-green3 px-6 py-3">
-              <span className="font-inter text-sm font-medium">
+              <span className="font-sans text-sm font-medium">
                 View Attachment
               </span>
             </div>
@@ -93,7 +93,7 @@ export default function ReceivablesAndPublicationsAbout() {
                   {/* Ini adalah pemicu yang akan ditampilkan di dalam ImageModal */}
                   <div className="flex items-center gap-2.5 border-b border-gray-200 px-6 py-3 text-gray-500 transition-colors duration-200 hover:bg-[#e2e7f0] hover:text-gray-900">
                     <IconImage />
-                    <span className="font-inter text-sm font-medium">
+                    <span className="font-sans text-sm font-medium">
                       Publication of PT Info Tekno Siaga Consumer Complaints {item.year}
                     </span>
                   </div>

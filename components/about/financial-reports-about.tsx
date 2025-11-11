@@ -28,7 +28,7 @@ export default function FinancialReports() {
         <div className="bg-white shadow-md overflow-hidden">
           {/* Header in Indonesian */}
           <div className="bg-custom-green3 px-6 py-3">
-            <span className="text-sm font-medium font-inter text-gray-900">
+            <span className="text-sm font-medium font-sans text-gray-900">
               Download Pernyataan Keuangan
             </span>
           </div>
@@ -44,7 +44,7 @@ export default function FinancialReports() {
               >
                 <PdfIcon />
                 {/* Link text in Indonesian */}
-                <span className="text-sm font-medium font-inter">
+                <span className="text-sm font-medium font-sans">
                   Pernyataan Keuangan {statement.year}
                 </span>
               </a>

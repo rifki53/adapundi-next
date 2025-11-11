@@ -47,7 +47,7 @@ const ModalPdfView = ({
             <Dialog.Panel className="relative flex flex-col max-h-[90vh] w-full max-w-6xl overflow-hidden rounded-2xl bg-white shadow-2xl">
               {/* Header */}
               <div className="bg-custom-green3 px-6 py-4 flex justify-between items-center flex-shrink-0">
-                <Dialog.Title className="text-sm font-medium font-inter text-gray-900">
+                <Dialog.Title className="text-sm font-medium font-sans text-gray-900">
                   {title}
                 </Dialog.Title>
                 <button

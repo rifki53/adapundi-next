@@ -60,7 +60,7 @@ export default async function FundingStatisticsAbout() {
             >
               <div className="flex flex-col">
                 <div className="bg-custom-green3 p-4 text-center">
-                  <div className="text-xl font-bold font-inter text-white">
+                  <div className="text-xl font-bold font-sans text-white">
                     {item.value}
                   </div>
                 </div>

@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+@import "tailwindcss";
 
 /* Additional styles */
-@import './additional-styles/utility-patterns.css' layer(components);
-@import './additional-styles/theme.css';
-@import './additional-styles/custom-fonts.css' layer(components);
+@import "./additional-styles/utility-patterns.css" layer(components);
+@import "./additional-styles/theme.css";
+@import "./additional-styles/custom-fonts.css" layer(components);
 
 @plugin "@tailwindcss/forms" {
   strategy: base;
@@ -14,8 +14,8 @@
 }
 
 @theme {
-  --font-inter: Montserrat, sans-serif;
-  --font-mono: Roboto Mono, monospace;
+  --font-sans: Montserrat, sans-serif;
+  --font-mono: "Roboto Mono", monospace; /* Menambahkan kutip untuk nama dengan spasi */
 
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;

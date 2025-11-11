@@ -61,7 +61,7 @@ function TestimonialCard({ data }: any) {
         <div
           className={`w-full md:w-3/5 ${bgColor} p-8 md:p-12 flex flex-col justify-center`}
         >
-          <h3 className="text-2xl md:text-3xl font-bold font-inter text-black text-center mb-6">
+          <h3 className="text-2xl md:text-3xl font-bold font-sans text-black text-center mb-6">
             {name} - {role}
           </h3>
           <p className="text-sm md:text-base font-montserrat text-black text-center mb-8">
@@ -86,7 +86,7 @@ export default function ListTestimonial() {
           <h2 className="text-3xl md:text-4xl font-bold font-montserrat text-[#1e1e1e] mb-4">
             Apa Kata Mereka?
           </h2>
-          <p className="text-lg md:text-xl font-normal font-inter text-black max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl font-normal font-sans text-black max-w-2xl mx-auto">
             Dengarkan kisah inspiratif dan ulasan pengguna Adapundi.
           </p>
         </div>

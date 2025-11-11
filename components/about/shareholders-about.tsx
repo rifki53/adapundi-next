@@ -13,7 +13,7 @@ const ShareholdersAbout = () => {
           <div className="rounded-xl overflow-hidden bg-white shadow-md">
             {/* Content Section */}
             <div className="p-6 sm:p-8 space-y-4">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-inter text-gray-800">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-sans text-gray-800">
                 Digital Technologies HK Limited
               </h3>
               <p className="text-sm sm:text-base text-gray-500 font-medium">
@@ -30,7 +30,7 @@ const ShareholdersAbout = () => {
           <div className="rounded-xl overflow-hidden bg-white shadow-md">
             {/* Content Section */}
             <div className="p-6 sm:p-8 space-y-4">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-inter text-gray-800">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-sans text-gray-800">
                 PT Info Tekno Selaras
               </h3>
               <p className="text-sm sm:text-base text-gray-500 font-medium font-montserrat">

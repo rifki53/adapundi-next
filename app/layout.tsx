@@ -1,15 +1,16 @@
 // Impor yang dibutuhkan
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google"; // GANTI: Impor Montserrat
 import Script from "next/script";
 import "./css/style.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
-const inter = Inter({
+// GANTI: Konfigurasi font dari Inter ke Montserrat
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-montserrat", // GANTI: Nama variabel CSS
   display: "swap",
 });
 
@@ -22,18 +23,13 @@ export const viewport: Viewport = {
 
 // 2. Definisikan Metadata GLOBAL / DASAR
 export const metadata: Metadata = {
-  // BARU: Tambahkan metadataBase untuk menangani URL absolut secara otomatis
   metadataBase: new URL("https://www.adapundi.com"),
-
-  // --- Template Judul & Fallback Deskripsi ---
   title: {
-    default: "Adapundi: Aplikasi Pinjaman Daring Terpercaya", // Judul jika halaman tidak punya title
-    template: "%s | Adapundi", // Format untuk halaman anak: "Judul Halaman | Adapundi"
+    default: "Adapundi: Aplikasi Pinjaman Daring Terpercaya",
+    template: "%s | Adapundi",
   },
   description:
     "Pinjaman aman dipercaya hampir 30 juta pengguna, dengan 14 juta+ pencairan telah disalurkan, serta berizin dan diawasi selama 7 tahun. Download Adapundi sekarang!",
-
-  // --- Branding, Ikon, dan Verifikasi Situs ---
   applicationName: "Adapundi",
   verification: {
     google: "UXqnevNmiKreKUmmvEfhBKDiNLSVqh9YKVgcNqBeIn4",
@@ -75,8 +71,6 @@ export const metadata: Metadata = {
     "msapplication-wide310x150logo": "/mstile-310x150.png",
     "msapplication-square310x310logo": "/mstile-310x310.png",
   },
-
-  // --- Dasar untuk Open Graph & Twitter ---
   openGraph: {
     type: "website",
     url: "https://www.adapundi.com",
@@ -95,8 +89,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className="scroll-smooth" data-scroll-behavior="smooth">
+      {/* GANTI: Terapkan variabel dan kelas font Montserrat */}
       <body
-        className={`${inter.variable} bg-gray-50 font-inter tracking-tight text-gray-900 antialiased`}
+        className={`${montserrat.variable} bg-gray-50 font-montserrat tracking-tight text-gray-900 antialiased`}
       >
         <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
           {children}
