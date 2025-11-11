@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   // Judul spesifik untuk halaman ini. Akan menjadi: "Pinjaman Daring Legal... | Adapundi"
   title: "Pinjaman Daring Legal Cepat Cair Tanpa Jaminan, Cukup KTP",
   description:
-    "Lakukan simulasi pinjaman Adapundi, dapat limit hingga 100 juta cukup KTP dengan proses penciaran cepat.",
+    "Lakukan simulasi pinjaman Adapundi, dapat limit hingga 100 juta cukup KTP dengan proses pencairan cepat.",
 
   // URL kanonis untuk halaman ini. Next.js akan menggabungkannya dengan `metadataBase`
   // menjadi "https://www.adapundi.com/loans"
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pinjaman Daring Legal Cepat Cair Tanpa Jaminan, Cukup KTP",
     description:
-      "Lakukan simulasi pinjaman Adapundi, dapat limit hingga 100 juta cukup KTP dengan proses penciaran cepat.",
+      "Lakukan simulasi pinjaman Adapundi, dapat limit hingga 100 juta cukup KTP dengan proses pencairan cepat.",
     url: "/loans", // URL spesifik untuk halaman ini
     // Gunakan gambar yang sama dengan homepage sebagai fallback jika tidak ada yang spesifik
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Pinjaman Daring Legal Cepat Cair Tanpa Jaminan, Cukup KTP",
     description:
-      "Lakukan simulasi pinjaman Adapundi, dapat limit hingga 100 juta cukup KTP dengan proses penciaran cepat.",
+      "Lakukan simulasi pinjaman Adapundi, dapat limit hingga 100 juta cukup KTP dengan proses pencairan cepat.",
     images: [
       {
         url: "/twitter-card-1200x630.png", // Path dari folder /public

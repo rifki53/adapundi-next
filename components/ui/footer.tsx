@@ -1,27 +1,25 @@
-"use client"; // Menandakan ini adalah Client Component karena menggunakan state/efek
-
-import React from "react";
 import Image from "next/image";
 
-// Mengimpor ikon dari Lucide React sebagai pengganti PrimeIcons
+// Mengimpor ikon dari Lucide React
 import {
   Phone,
   Mail,
   Instagram,
   Facebook,
   Youtube,
-  Film, // Pengganti TikTok
-  MessageSquare, // Pengganti WhatsApp
+  MessageSquare,
 } from "lucide-react";
 
+// Mengimpor ikon TikTok kustom yang telah Anda buat
+import { TiktokIcon } from "@/components/icons/tiktok-icon";
+
 // Mengimpor gambar dari folder public
-// Di Next.js, path ini akan di-resolve dari root folder public
 import androidLogo from "@/public/images/download/android-cta-logo.png";
 import iosLogo from "@/public/images/download/ios-cta-logo.png";
 import logoWhite from "@/public/images/logo/logo_white.png";
 import tuvQr from "@/public/images/icon/tuv-qr.png";
 
-// PERUBAHAN 1: Menambahkan properti 'id' yang unik untuk setiap objek
+// Array kontak dengan ikon TikTok yang sudah diganti
 const contacts = [
   {
     id: "phone",
@@ -58,7 +56,7 @@ const contacts = [
   },
   {
     id: "tiktok",
-    icon: Film,
+    icon: TiktokIcon, // Menggunakan ikon TikTok kustom
     text: "adapundi_official_id",
     href: "https://www.tiktok.com/@adapundi_official_id",
     nofollow: true,
@@ -180,7 +178,6 @@ const Footer = () => {
                         {contacts.map((contact) => {
                           const Icon = contact.icon;
                           return (
-                            // PERUBAHAN 2: Menggunakan contact.id sebagai key
                             <div
                               key={contact.id}
                               className="flex items-center gap-2"
