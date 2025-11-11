@@ -6,8 +6,8 @@ import Image from "next/image";
 import { getStrapiPostBySlug, formatDate } from "@/hooks/strapi"; 
 
 // Impor komponen PostNav dan CustomMDX
-import PostNav from "./post-nav";
-import { CustomMDX } from "@/components/mdx/mdx"; // Pastikan nama file dan path ini benar
+import PostNav from "@/components/mdx/post-nav";
+import { CustomMDX } from "@/components/mdx/custom-mdx"; // Pastikan nama file dan path ini benar
 
 // Props untuk halaman dinamis
 interface PostPageProps {

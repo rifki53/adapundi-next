@@ -4,7 +4,7 @@ import type { Category } from "@/hooks/strapi";
 import { generateBreadcrumbSchema } from "@/utils/schemas";
 
 // Impor komponen Anda
-import BlogList from "./BlogList";
+import BlogList from "../../../components/mdx/blog-list";
 import HeroTitle from "@/components/hero-title";
 
 // 1. Definisikan Metadata SPESIFIK untuk Halaman Indeks Blog (/blog)
