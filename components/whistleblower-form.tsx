@@ -5,7 +5,7 @@ const WhistleblowerForm: FC = () => {
   return (
     <section className="relative bg-white">
       <div className="max-w-6xl mx-auto py-8 md:py-14 px-4 sm:px-6">
-        <div className="w-full max-w-5xl mx-auto bg-white p-6 sm:p-8">
+        <div className="w-full max-w-6xl mx-auto bg-white p-6 sm:p-8">
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-gray-900">
               Formulir Laporan <span className="italic">Whistleblower</span>
