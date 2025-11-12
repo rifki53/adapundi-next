@@ -63,8 +63,8 @@ export default function Antifraud() {
 
       {/* Render semua komponen visual halaman Anda */}
       <HeroTitle
-        title="Saluran Whistleblowing Adapundi<br>Jaga Integritas Kita Bersama"
-        description="Laporkan dugaan pelanggaran atau praktik tidak etis. Kami menjamin kerahasiaan dan perlindungan penuh bagi setiap pelapor."
+        title="Saluran <i>Whistleblowing</i> Adapundi<br>Jaga Integritas Kita Bersama"
+        description="Laporkan dugaan pelanggaran atau praktik tidak etis. Kami menjamin kerahasiaan dan pelindungan penuh bagi setiap pelapor."
       />
       <WhistleblowerForm />
     </>
