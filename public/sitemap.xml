@@ -3,61 +3,73 @@
 
   <url>
     <loc>https://www.adapundi.com/</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/about</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/faq</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/antifraud</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/riplay</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/testimonial</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/loans</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/investment</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/term-condition</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.adapundi.com/privacy-policy</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.adapundi.com/blog</loc>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.adapundi.com/whistleblowing</loc>
+    <lastmod>2025-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
