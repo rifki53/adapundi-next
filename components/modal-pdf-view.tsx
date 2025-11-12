@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { X } from "lucide-react"; // Menggunakan ikon dari lucide-react
+import { IoClose } from "react-icons/io5"; // Menggunakan ikon dari react-icons/io5
 
 interface ModalPdfViewProps {
   isOpen: boolean;
@@ -55,7 +55,7 @@ const ModalPdfView = ({
                   className="text-gray-700 hover:text-gray-900 focus:outline-none"
                   aria-label="Close"
                 >
-                  <X size={24} />
+                  <IoClose size={24} />
                 </button>
               </div>
 

@@ -26,11 +26,8 @@ const WhistleblowerForm: FC = () => {
               style={{ paddingTop: "150%" }}
             >
               <iframe
-                src="https://docs.google.com/forms/d/e/1FAIpQLSfGQZa7GD4S3IDixJdhV80ybREhthSVWGtsKwQiEwS6VW8Ujg/viewform?embedded=true"
+                src="https://docs.google.com/forms/d/e/1FAIpQLSevDuVPDtl1iFqeZEK_Qfvcu_852xgdaITaSwG3ZnwUQnqXhg/viewform?embedded=true"
                 className="absolute top-0 left-0 w-full h-full"
-                frameBorder="0"
-                marginHeight={0}
-                marginWidth={0}
               >
                 Loading…
               </iframe>
@@ -40,7 +37,7 @@ const WhistleblowerForm: FC = () => {
           <p className="mt-4 text-xs text-center text-gray-500">
             Jika formulir tidak tampil, Anda bisa mengaksesnya{" "}
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfGQZa7GD4S3IDixJdhV80ybREhthSVWGtsKwQiEwS6VW8Ujg/viewform"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSevDuVPDtl1iFqeZEK_Qfvcu_852xgdaITaSwG3ZnwUQnqXhg/viewform"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline"

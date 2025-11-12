@@ -1,6 +1,6 @@
 "use client";
 
-import { Phone, Mail, Instagram, Info } from "lucide-react";
+import { IoCall, IoMail, IoLogoInstagram, IoInformationCircle } from "react-icons/io5";
 
 const ReportFraudAntifraud = () => {
   return (
@@ -30,7 +30,7 @@ const ReportFraudAntifraud = () => {
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div className="space-y-4">
                   <div className="flex items-center justify-center w-12 h-12 bg-custom-green3 rounded-full mx-auto">
-                    <Phone className="text-gray-900" size={24} />
+                    <IoCall className="text-gray-900" size={24} />
                   </div>
                   <div className="text-center">
                     <h3 className="font-semibold text-gray-900 mb-2">
@@ -50,7 +50,7 @@ const ReportFraudAntifraud = () => {
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div className="space-y-4">
                   <div className="flex items-center justify-center w-12 h-12 bg-custom-green3 rounded-full mx-auto">
-                    <Mail className="text-gray-900" size={24} />
+                    <IoMail className="text-gray-900" size={24} />
                   </div>
                   <div className="text-center">
                     <h3 className="font-semibold text-gray-900 mb-2">
@@ -70,7 +70,7 @@ const ReportFraudAntifraud = () => {
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div className="space-y-4">
                   <div className="flex items-center justify-center w-12 h-12 bg-custom-green3 rounded-full mx-auto">
-                    <Instagram className="text-gray-900" size={24} />
+                    <IoLogoInstagram className="text-gray-900" size={24} />
                   </div>
                   <div className="text-center">
                     <h3 className="font-semibold text-gray-900 mb-2">
@@ -92,7 +92,7 @@ const ReportFraudAntifraud = () => {
             {/* Additional Info Box */}
             <div className="bg-custom-orange border border-gray-200 rounded-lg p-4 mt-8">
               <div className="flex items-start space-x-3">
-                <Info className="text-blue-600 mt-1 shrink-0" size={16} />
+                <IoInformationCircle className="text-blue-600 mt-1 shrink-0" size={16} />
                 <p className="text-sm text-gray-600">
                   Pastikan Anda selalu berkomunikasi melalui kanal resmi
                   Adapundi yang tercantum di atas. Kami tidak bertanggung jawab

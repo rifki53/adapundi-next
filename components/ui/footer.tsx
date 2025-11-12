@@ -1,14 +1,14 @@
 import Image from "next/image";
 
-// Mengimpor ikon dari Lucide React
+// Mengimpor ikon dari react-icons/io5
 import {
-  Phone,
-  Mail,
-  Instagram,
-  Facebook,
-  Youtube,
-  MessageSquare,
-} from "lucide-react";
+  IoCall,
+  IoMail,
+  IoLogoInstagram,
+  IoLogoFacebook,
+  IoLogoYoutube,
+  IoLogoWhatsapp,
+} from "react-icons/io5";
 
 // Mengimpor ikon TikTok kustom yang telah Anda buat
 import { TiktokIcon } from "@/components/icons/tiktok-icon";
@@ -19,51 +19,51 @@ import iosLogo from "@/public/images/download/ios-cta-logo.png";
 import logoWhite from "@/public/images/logo/logo_white.png";
 import tuvQr from "@/public/images/icon/tuv-qr.png";
 
-// Array kontak dengan ikon TikTok yang sudah diganti
+// Array kontak dengan ikon yang sudah diganti ke react-icons
 const contacts = [
   {
     id: "phone",
-    icon: Phone,
+    icon: IoCall,
     text: "(021)50860666",
     href: "tel:02150860666",
   },
   {
     id: "whatsapp",
-    icon: MessageSquare,
+    icon: IoLogoWhatsapp, // Menggunakan ikon WhatsApp dari react-icons
     text: "0812-99925778",
     href: "https://api.whatsapp.com/send/?phone=6281299925778",
     nofollow: true,
   },
   {
     id: "email",
-    icon: Mail,
+    icon: IoMail,
     text: "cs@adapundi.com",
     href: "mailto:cs@adapundi.com",
   },
   {
     id: "instagram",
-    icon: Instagram,
+    icon: IoLogoInstagram,
     text: "adapundi_official_id",
     href: "https://www.instagram.com/adapundi_official_id/",
     nofollow: true,
   },
   {
     id: "facebook",
-    icon: Facebook,
+    icon: IoLogoFacebook,
     text: "Adapundi_official_id",
     href: "https://www.facebook.com/adapundi.official.indonesia",
     nofollow: true,
   },
   {
     id: "tiktok",
-    icon: TiktokIcon, // Menggunakan ikon TikTok kustom
+    icon: TiktokIcon, // Tetap menggunakan ikon TikTok kustom
     text: "adapundi_official_id",
     href: "https://www.tiktok.com/@adapundi_official_id",
     nofollow: true,
   },
   {
     id: "youtube",
-    icon: Youtube,
+    icon: IoLogoYoutube,
     text: "Adapundi Official",
     href: "https://www.youtube.com/@adapundiofficialid",
     nofollow: true,
