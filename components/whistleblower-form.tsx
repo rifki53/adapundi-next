@@ -1,6 +1,4 @@
 // components/WhistleblowerForm.tsx
-"use client";
-
 import type { FC } from "react";
 
 const WhistleblowerForm: FC = () => {

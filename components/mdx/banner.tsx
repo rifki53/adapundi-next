@@ -1,4 +1,3 @@
-"use client";
 type PostBannerProps = {
   title: string;
   children: React.ReactNode;
