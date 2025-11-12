@@ -9,9 +9,10 @@ const WhistleblowerForm: FC = () => {
       <div className="max-w-6xl mx-auto py-8 md:py-14 px-4 sm:px-6">
         <div className="w-full max-w-5xl mx-auto bg-white p-6 sm:p-8">
           <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 italic">
-              Formulir Laporan Whistleblower
+            <h1 className="text-3xl font-bold text-gray-900">
+              Formulir Laporan <span className="italic">Whistleblower</span>
             </h1>
+
             <p className="mt-2 text-md text-gray-600">
               Silakan isi formulir di bawah ini. Kami menjamin kerahasiaan
               identitas Anda.

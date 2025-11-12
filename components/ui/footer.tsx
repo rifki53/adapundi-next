@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link"; // <-- Ditambahkan untuk routing
 
 // Mengimpor ikon dari react-icons/io5
 import {
@@ -201,7 +202,7 @@ const Footer = () => {
                       </div>
                     </div>
 
-                    {/* Right Column: Jam Layanan */}
+                    {/* Right Column: Jam Layanan & Whistleblowing */}
                     <div className="w-full md:w-1/2">
                       <h2 className="text-white text-md font-bold mb-4">
                         Jam Layanan Aduan
@@ -212,6 +213,19 @@ const Footer = () => {
                         <br />
                         <p>Aduan langsung:</p>
                         <p>Senin - Jumat 09.00 - 17.00</p>
+                      </div>
+
+                      {/* --- Whistleblowing Section (REVISED) --- */}
+                      <div className="mt-6">
+                        <h2 className="text-white text-md font-bold mb-2">
+                          Whistleblowing System
+                        </h2>
+                        <Link
+                          href="/whistleblowing"
+                          className="text-white text-sm font-normal hover:text-gray-300 hover:underline"
+                        >
+                          Laporkan di sini
+                        </Link>
                       </div>
                     </div>
                   </div>
