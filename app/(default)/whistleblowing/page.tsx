@@ -1,56 +1,59 @@
 import { Metadata } from "next";
-import { generateBreadcrumbSchema } from "@/utils/schemas";
+import { generateBreadcrumbSchema, whistleblowingPageSchema } from "@/utils/schemas"; // Pastikan path import benar
 
 import HeroTitle from "@/components/hero-title";
 import WhistleblowerForm from "@/components/whistleblower-form";
 
-// 1. Definisikan Metadata SPESIFIK untuk Halaman Antifraud
+// 1. Definisikan Metadata SEO untuk Halaman Whistleblowing
 export const metadata: Metadata = {
-  // Judul spesifik. Akan menjadi: "Kenali Modus... | Adapundi"
-  title: "Kenali Modus Penipuan Pinjaman Daring dan Tips Mengatasinya",
+  // Meta Title dari data Anda
+  title: "Whistleblowing System Aman dan Rahasia | Laporkan Pelanggaran Tanpa Takut",
+  // Meta Description dari data Anda
   description:
-    "Panduan antifraud untuk memastikan transaksi aman dan Anda terhindar penipuan yang mengatasnamakan Adapundi.",
+    "Kami menyediakan ruang aman bagi siapa pun yang ingin melaporkan pelanggaran. Whistleblowing System ini menjamin kerahasiaan identitas pelapor dan penanganan yang profesional.",
 
-  // URL kanonis untuk halaman ini.
+  // URL kanonis untuk halaman ini
   alternates: {
-    canonical: "/antifraud",
+    canonical: "/whistleblowing",
   },
 
-  // --- Menimpa Open Graph & Twitter untuk halaman ini ---
+  // --- Open Graph & Twitter Card dari data Anda ---
   openGraph: {
-    title: "Kenali Modus Penipuan Pinjaman Daring dan Tips Mengatasinya",
+    type: "website",
+    title: "Whistleblowing System Aman dan Rahasia | Laporkan Pelanggaran Tanpa Takut",
     description:
-      "Panduan antifraud untuk memastikan transaksi aman dan Anda terhindar penipuan yang mengatasnamakan Adapundi.",
-    url: "/antifraud", // URL spesifik halaman ini
-    // Menggunakan gambar default situs untuk preview saat dibagikan
+      "Kami menyediakan ruang aman bagi siapa pun yang ingin melaporkan pelanggaran. Whistleblowing System ini menjamin kerahasiaan identitas pelapor dan penanganan yang profesional.",
+    url: "/whistleblowing", // URL spesifik halaman ini
+    siteName: "Adapundi",
     images: [
       {
-        url: "/twitter-card-1200x630.png",
+        url: "/twitter-card-1200x630.png", // Asumsi menggunakan gambar default
         width: 1200,
         height: 630,
-        alt: "Adapundi - Waspada Penipuan",
+        alt: "Adapundi Whistleblowing System",
       },
     ],
   },
   twitter: {
-    title: "Kenali Modus Penipuan Pinjaman Daring dan Tips Mengatasinya",
+    card: "summary_large_image",
+    title: "Whistleblowing System Aman dan Rahasia | Laporkan Pelanggaran Tanpa Takut",
     description:
-      "Panduan antifraud untuk memastikan transaksi aman dan Anda terhindar penipuan yang mengatasnamakan Adapundi.",
+      "Kami menyediakan ruang aman bagi siapa pun yang ingin melaporkan pelanggaran. Whistleblowing System ini menjamin kerahasiaan identitas pelapor dan penanganan yang profesional.",
     images: [
       {
-        url: "/twitter-card-1200x630.png",
+        url: "/twitter-card-1200x630.png", // Asumsi menggunakan gambar default
         width: 1200,
-        height: 630,
-        alt: "Adapundi Twitter Card",
+        height: 600, // Twitter merekomendasikan 600px untuk height
+        alt: "Adapundi Twitter Card for Whistleblowing",
       },
     ],
   },
 };
 
-// 2. Komponen Halaman Antifraud
-export default function Antifraud() {
-  // Buat schema breadcrumb spesifik untuk halaman ini (seperti di kode Vue)
-  const breadcrumbSchema = generateBreadcrumbSchema(["home", "antifraud"]);
+// 2. Komponen Halaman Whistleblowing
+export default function WhistleblowingPage() {
+  // Buat schema breadcrumb spesifik untuk halaman ini: Home > Whistleblowing
+  const breadcrumbSchema = generateBreadcrumbSchema(["home", "whistleblower"]);
 
   return (
     <>
@@ -61,10 +64,18 @@ export default function Antifraud() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
+      {/* Sisipkan JSON-LD Schema untuk Halaman Whistleblowing */}
+      <script
+        key="whistleblowing-page-schema"
+        type="application/ld+json"
+        // Kita ambil objek pertama dari array schema yang sudah diimpor
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(whistleblowingPageSchema[0]) }}
+      />
+
       {/* Render semua komponen visual halaman Anda */}
       <HeroTitle
-        title="Saluran <i>Whistleblowing</i> Adapundi<br>Jaga Integritas Kita Bersama"
-        description="Laporkan dugaan pelanggaran atau praktik tidak etis. Kami menjamin kerahasiaan dan pelindungan penuh bagi setiap pelapor."
+        title="Saluran <i>Whistleblowing</i> Adapundi"
+        description="Jaga integritas bersama, laporkan dugaan pelanggaran atau praktik tidak etis dengan keamanan dan kerahasiaan terjamin."
       />
       <WhistleblowerForm />
     </>

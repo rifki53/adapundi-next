@@ -57,21 +57,24 @@ export const metadata: Metadata = {
 
 // 2. Komponen Halaman About
 export default function About() {
-  // Buat semua schema JSON-LD yang dibutuhkan untuk halaman ini
+  // Buat schema breadcrumb spesifik untuk halaman ini: Home > About
   const breadcrumbSchema = generateBreadcrumbSchema(["home", "about"]);
-  // Asumsi `aboutPageSchema` adalah array yang diimpor dari utils/schemas.js
-  const allSchemas = [breadcrumbSchema, ...aboutPageSchema];
 
   return (
     <>
-      {/* Sisipkan semua JSON-LD Schema yang relevan untuk halaman ini */}
-      {allSchemas.map((schema, index) => (
-        <script
-          key={`about-schema-${index}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
+      {/* Sisipkan JSON-LD Schema untuk Breadcrumb */}
+      <script
+        key="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      {/* Sisipkan JSON-LD Schema untuk Halaman About */}
+      <script
+        key="about-page-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema[0]) }}
+      />
 
       {/* Render semua komponen visual halaman Anda */}
       <HeroAbout />

@@ -58,13 +58,12 @@ export default function Home() {
 
   return (
     <>
-      {homePageSchemas.map((schema, index) => (
-        <script
-          key={`home-schema-${index}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
+      <script
+        key="home-schema-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchemas[0]) }}
+      />
+
       <script
         key="breadcrumb-schema"
         type="application/ld+json"

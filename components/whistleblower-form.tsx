@@ -23,6 +23,7 @@ const WhistleblowerForm: FC = () => {
             <div
               className="relative w-full overflow-hidden"
               style={{ paddingTop: "150%" }}
+
             >
               <iframe
                 src="https://docs.google.com/forms/d/e/1FAIpQLSevDuVPDtl1iFqeZEK_Qfvcu_852xgdaITaSwG3ZnwUQnqXhg/viewform?embedded=true"

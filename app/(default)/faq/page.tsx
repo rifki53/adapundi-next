@@ -62,15 +62,13 @@ export default function Faq() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      
+
       {/* Sisipkan JSON-LD Schema untuk FAQPage (looping melalui array) */}
-      {faqPageSchema.map((schema, index) => (
-        <script
-          key={`faq-schema-${index}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
+      <script
+        key="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema[0]) }}
+      />
 
       {/* Render semua komponen visual halaman Anda */}
       <HeroTitle

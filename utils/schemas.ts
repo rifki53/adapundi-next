@@ -25,7 +25,6 @@ interface BreadcrumbListSchema {
 }
 
 // --- PERBAIKAN SELESAI ---
-
 export const BREADCRUMB_ITEMS: BreadcrumbItems = {
   home: { name: "Home", item: "https://www.adapundi.com/" },
   loans: { name: "Pinjaman", item: "https://www.adapundi.com/loans" },
@@ -50,7 +49,12 @@ export const BREADCRUMB_ITEMS: BreadcrumbItems = {
     name: "Kebijakan Privasi",
     item: "https://www.adapundi.com/privacy-policy",
   },
+  whistleblower: {
+    name: "Whistleblowing",
+    item: "https://www.adapundi.com/whistleblowing",
+  },
 };
+
 
 /**
  * Menghasilkan skema BreadcrumbList berdasarkan kunci halaman yang diberikan.
@@ -131,6 +135,18 @@ export const homePageSchemas = [
     ],
   },
 ] as const;
+
+export const whistleblowingPageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Report",
+    "name": "Whistleblower System",
+    "description": "Kami menyediakan ruang aman bagi siapa pun yang ingin melaporkan pelanggaran. Whistleblowing System ini menjamin kerahasiaan identitas pelapor dan penanganan yang professional.",
+    "url": "https://www.adapundi.com/whistleblowing",
+    "isAccessibleForFree": true,
+  },
+] as const;
+
 
 export const aboutPageSchema = [
   {
